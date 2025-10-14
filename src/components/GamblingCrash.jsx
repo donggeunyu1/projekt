@@ -143,7 +143,7 @@ export default function GamblingCrash() {
           <li>Multiplieren stiger — tryk <strong>Stop</strong> inden den crasher!</li>
           <li>Hvis du når at stoppe før crash, vinder du indsats × multiplier.</li>
           <li>Dette er kun et spil med virtuelle mønter.</li>
-          <li>Hey Yu</li>
+          <li>Hey</li>
         </ul>
       </div>
     </div>
