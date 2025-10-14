@@ -102,7 +102,7 @@ export default function GamblingCrash() {
       <div className="flex justify-center gap-3 mb-6">
         <button
           onClick={() => setBalance(1000)}
-          className="px-6 py-3 text-lg bg-gray-300 rounded font-semibold"
+          style={{ padding: '18px 36px', fontSize: '1.25rem', background: '#e5e7eb', borderRadius: '12px', fontWeight: '600', border: 'none', cursor: 'pointer' }}
         >
           Reset Balance
         </button>
@@ -126,14 +126,38 @@ export default function GamblingCrash() {
         <button
           onClick={startGame}
           disabled={isPlaying}
-          className="px-8 py-4 text-xl bg-green-600 text-white rounded-lg font-bold disabled:opacity-60 shadow-lg transition-transform hover:scale-105"
+          style={{
+            padding: '24px 48px',
+            fontSize: '1.5rem',
+            background: isPlaying ? '#4ade80aa' : '#16a34a',
+            color: 'white',
+            borderRadius: '16px',
+            fontWeight: 'bold',
+            border: 'none',
+            opacity: isPlaying ? 0.6 : 1,
+            boxShadow: '0 4px 16px #0001',
+            cursor: isPlaying ? 'not-allowed' : 'pointer',
+            transition: 'transform 0.1s',
+          }}
         >
           Start
         </button>
         <button
           onClick={stopGame}
           disabled={!isPlaying || cashedOut}
-          className="px-8 py-4 text-xl bg-red-600 text-white rounded-lg font-bold disabled:opacity-60 shadow-lg transition-transform hover:scale-105"
+          style={{
+            padding: '24px 48px',
+            fontSize: '1.5rem',
+            background: (!isPlaying || cashedOut) ? '#f87171aa' : '#dc2626',
+            color: 'white',
+            borderRadius: '16px',
+            fontWeight: 'bold',
+            border: 'none',
+            opacity: (!isPlaying || cashedOut) ? 0.6 : 1,
+            boxShadow: '0 4px 16px #0001',
+            cursor: (!isPlaying || cashedOut) ? 'not-allowed' : 'pointer',
+            transition: 'transform 0.1s',
+          }}
         >
           Stop
         </button>
