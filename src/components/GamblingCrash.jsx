@@ -121,7 +121,7 @@ export default function GamblingCrash() {
         </button>
       </div>
 
-      <div style={{ width: '100%', height: 300, background: '#f9fafb', padding: 8, borderRadius: 8 }}>
+      <div style={{ width: '60%', height: 300, background: '#fafafbff', padding: 8, borderRadius: 8 }}>
   <ResponsiveContainer width="100%" height="100%">
     <LineChart data={data}>
       <CartesianGrid strokeDasharray="3 3" />
@@ -131,7 +131,7 @@ export default function GamblingCrash() {
       <Line type="monotone" dataKey="multiplier" stroke="#82ca9d" strokeWidth={2} dot={false} isAnimationActive={false} />
     </LineChart>
   </ResponsiveContainer>
-</div>
+      </div>
 
 
       <div className="mt-4 text-lg font-medium">{message}</div>
