@@ -72,44 +72,39 @@ export default function GamblingCrash() {
 
 
   return (
-    <div className="p-4 max-w-2xl mx-auto text-center">
-      <h1 className="text-2xl font-bold mb-4">💥 Gambling Crash</h1>
-
-      <div className="flex justify-center gap-4 mb-4">
-        <div className="bg-gray-100 p-3 rounded">
-          <div className="text-sm">Balance</div>
-          <div className="text-xl font-semibold">{balance} 💰</div>
+    <div className="crash-container">
+      <h1 className="crash-title">💥 Gambling Crash</h1>
+      <div className="crash-stats">
+        <div className="stat-card">
+          <div className="stat-label">Balance</div>
+          <div className="stat-value">{balance} 💰</div>
         </div>
-        <div className="bg-gray-100 p-3 rounded">
-          <div className="text-sm">Multiplier</div>
-          <div className="text-xl font-semibold">{multiplier.toFixed(2)}x</div>
+        <div className="stat-card">
+          <div className="stat-label">Multiplier</div>
+          <div className="stat-value">{multiplier.toFixed(2)}x</div>
         </div>
       </div>
-
-      <div className="mb-4">
-        <label className="text-sm mr-2">Indsats:</label>
+      <div className="bet-row">
+        <label className="bet-label">Indsats:</label>
         <input
           type="number"
           min={1}
           value={bet}
           onChange={(e) => setBet(Number(e.target.value))}
           disabled={isPlaying}
-          className="w-24 p-1 border rounded"
+          className="bet-input"
         />
       </div>
 
       {/* Buttons moved below the graph, only Reset remains here for layout */}
-      <div className="flex justify-center gap-3 mb-6">
-        <button
-          onClick={() => setBalance(1000)}
-          className="px-6 py-3 text-lg bg-gray-300 rounded font-semibold"
-        >
+      <div className="reset-row">
+        <button onClick={() => setBalance(1000)} className="btn-reset">
           Reset Balance
         </button>
       </div>
 
 
-      <div style={{ width: '60%', height: 300, background: '#fafafbff', padding: 8, borderRadius: 8, margin: '0 auto' }}>
+      <div style={{ width: '60%', height: 300, background: '#fafafbff', padding: 8, borderRadius: 8, marginLeft: 8}}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -122,34 +117,29 @@ export default function GamblingCrash() {
       </div>
 
       {/* Start and Stop buttons moved below the graph */}
-      <div className="flex justify-center gap-6 my-8">
+      <div className="control-row">
         <button
-          onClick={startGame}
-          disabled={isPlaying}
-          className="px-8 py-4 text-xl bg-green-600 text-white rounded-lg font-bold disabled:opacity-60 shadow-lg transition-transform hover:scale-105"
+          onClick={() => {
+            if (!isPlaying) startGame();
+            else stopGame();
+          }}
+          className="btn-toggle"
+          disabled={isPlaying && cashedOut}
         >
-          Start
-        </button>
-        <button
-          onClick={stopGame}
-          disabled={!isPlaying || cashedOut}
-          className="px-8 py-4 text-xl bg-red-600 text-white rounded-lg font-bold disabled:opacity-60 shadow-lg transition-transform hover:scale-105"
-        >
-          Stop
+          {isPlaying ? (cashedOut ? 'Cashed' : 'Stop') : 'Start'}
         </button>
       </div>
 
 
-      <div className="mt-4 text-lg font-medium">{message}</div>
+  <div className="crash-message">{message}</div>
 
-      <div className="mt-6 text-sm text-gray-600">
+      <div className="rules">
         <strong>Regler:</strong>
-        <ul className="list-disc pl-5 text-left inline-block">
+        <ul>
           <li>Placer en indsats og tryk <strong>Start</strong>.</li>
           <li>Multiplieren stiger — tryk <strong>Stop</strong> inden den crasher!</li>
           <li>Hvis du når at stoppe før crash, vinder du indsats × multiplier.</li>
           <li>Dette er kun et spil med virtuelle mønter.</li>
-          <li>Hey</li>
         </ul>
       </div>
     </div>
