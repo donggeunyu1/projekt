@@ -98,39 +98,45 @@ export default function GamblingCrash() {
         />
       </div>
 
+      {/* Buttons moved below the graph, only Reset remains here for layout */}
       <div className="flex justify-center gap-3 mb-6">
+        <button
+          onClick={() => setBalance(1000)}
+          className="px-6 py-3 text-lg bg-gray-300 rounded font-semibold"
+        >
+          Reset Balance
+        </button>
+      </div>
+
+
+      <div style={{ width: '60%', height: 300, background: '#fafafbff', padding: 8, borderRadius: 8, margin: '0 auto' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="time" type="number" domain={['dataMin', 'dataMax']} tickFormatter={(val) => val.toFixed(1) + 's'} />
+            <YAxis dataKey="multiplier" type="number" domain={[1, 'auto']} tickFormatter={(val) => val.toFixed(2) + 'x'} />
+            <Tooltip formatter={(val) => val.toFixed(2) + 'x'} labelFormatter={(label) => 'Tid: ' + label.toFixed(1) + 's'} />
+            <Line type="monotone" dataKey="multiplier" stroke="#82ca9d" strokeWidth={2} dot={false} isAnimationActive={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Start and Stop buttons moved below the graph */}
+      <div className="flex justify-center gap-6 my-8">
         <button
           onClick={startGame}
           disabled={isPlaying}
-          className="px-4 py-2 bg-green-600 text-white rounded disabled:opacity-60"
+          className="px-8 py-4 text-xl bg-green-600 text-white rounded-lg font-bold disabled:opacity-60 shadow-lg transition-transform hover:scale-105"
         >
           Start
         </button>
         <button
           onClick={stopGame}
           disabled={!isPlaying || cashedOut}
-          className="px-4 py-2 bg-red-600 text-white rounded disabled:opacity-60"
+          className="px-8 py-4 text-xl bg-red-600 text-white rounded-lg font-bold disabled:opacity-60 shadow-lg transition-transform hover:scale-105"
         >
           Stop
         </button>
-        <button
-          onClick={() => setBalance(1000)}
-          className="px-3 py-2 bg-gray-300 rounded"
-        >
-          Reset Balance
-        </button>
-      </div>
-
-      <div style={{ width: '60%', height: 300, background: '#fafafbff', padding: 8, borderRadius: 8 }}>
-  <ResponsiveContainer width="100%" height="100%">
-    <LineChart data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="time" type="number" domain={['dataMin', 'dataMax']} tickFormatter={(val) => val.toFixed(1) + 's'} />
-      <YAxis dataKey="multiplier" type="number" domain={[1, 'auto']} tickFormatter={(val) => val.toFixed(2) + 'x'} />
-      <Tooltip formatter={(val) => val.toFixed(2) + 'x'} labelFormatter={(label) => 'Tid: ' + label.toFixed(1) + 's'} />
-      <Line type="monotone" dataKey="multiplier" stroke="#82ca9d" strokeWidth={2} dot={false} isAnimationActive={false} />
-    </LineChart>
-  </ResponsiveContainer>
       </div>
 
 
