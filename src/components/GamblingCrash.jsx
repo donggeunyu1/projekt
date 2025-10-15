@@ -59,13 +59,21 @@ export default function GamblingCrash() {
     setMultiplier(newMult);
 
     if (newMult >= crashPoint) {
-      clearInterval(timerRef.current);
-      if (!cashedOut) {
-        setMessage(`Crash ved ${crashPoint.toFixed(2)}x 😭 du tabte!`);
-        setIsPlaying(false);
-      }
-    }
-  }, 100);
+  clearInterval(timerRef.current);
+
+  if (!cashedOut) {
+    // Tilføj et crash-punkt der falder brat ned til 0
+    setData((prev) => [
+      ...prev,
+      { time: elapsed, multiplier: crashPoint }, // toppen
+      { time: elapsed + 0.1, multiplier: 0 },    // fald ned
+    ]);
+
+    setMessage(`💥 Crash ved ${crashPoint.toFixed(2)}x! Du tabte 😭`);
+    setIsPlaying(false);
+  }
+}
+}, 100);
 
   return () => clearInterval(timerRef.current);
 }, [isPlaying, crashPoint, cashedOut]);
