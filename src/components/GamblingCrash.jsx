@@ -54,7 +54,7 @@ export default function GamblingCrash() {
     const elapsed = (Date.now() - start) / 1000;
     /*const newMult = 1 + elapsed / 2; // hastighed justeret*/
 
-    const growthRate = 0.5; // styrer hvor hurtigt den stiger (prøv at justere)
+    const growthRate = 1.0; // styrer hvor hurtigt den stiger (prøv at justere)
     const newMult = Math.exp(growthRate * elapsed);
 
 
