@@ -52,7 +52,11 @@ export default function GamblingCrash() {
 
   timerRef.current = setInterval(() => {
     const elapsed = (Date.now() - start) / 1000;
-    const newMult = 1 + elapsed / 2; // hastighed justeret
+    /*const newMult = 1 + elapsed / 2; // hastighed justeret*/
+
+    const growthRate = 0.25; // styrer hvor hurtigt den stiger (prøv at justere)
+    const newMult = Math.exp(growthRate * elapsed);
+
 
     // tilføj datapunkt
     setData((prev) => [...prev, { time: elapsed, multiplier: newMult }]);
