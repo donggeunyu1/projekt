@@ -1,0 +1,19 @@
+/* src/styles/Crash.css */
+.crash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-family: Inter, Arial, sans-serif;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  min-height: 100vh;
+  color: #e6eef8;
+}
+
+.crash-title { font-size: 2rem; color: #7ee787; margin-bottom: 0.8rem; }
+.crash-stats { display:flex; gap:12px; margin-bottom:12px; }
+.stat-card { background:#081029; padding:12px 18px; border-radius:10px; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+.bet-row { margin-bottom: 12px; }
+.bet-input { width:100px; padding:8px; border-radius:8px; border:none; }
+.btn-toggle { padding:10px 20px; background:#7ee787; border:none; border-radius:10px; cursor:pointer; }
+.crash-message { margin-top:12px; color:#ffd1d1; }

@@ -15,7 +15,7 @@ export default function GamblingCrash() {
   function startGame() {
     if (isPlaying) return;
     if (bet <= 0 || bet > balance) {
-      setMessage("Ugyldig indsats");
+      setMessage("Not enough balance to play!");
       return;
     }
     const newCrash = generateCrashPoint();
@@ -25,7 +25,7 @@ export default function GamblingCrash() {
     setBalance((b) => b - bet);
     setCrashPoint(newCrash);
     setData([{ time: 0, multiplier: 1 }]);
-    setMessage("Spillet kører... Tryk STOP inden det crasher!");
+    setMessage("The game is on... Press STOP before it crashes!");
   }
 
   function generateCrashPoint() {
@@ -38,7 +38,7 @@ export default function GamblingCrash() {
     setCashedOut(true);
     const payout = Math.floor(bet * multiplier);
     setBalance((b) => b + payout);
-    setMessage(`Du stoppede ved ${multiplier.toFixed(2)}x og vandt ${payout} 💰`);
+    setMessage(`You stopped at ${multiplier.toFixed(2)}x and won ${payout}`);
     clearInterval(timerRef.current);
     setIsPlaying(false);
   }
@@ -73,7 +73,7 @@ export default function GamblingCrash() {
       { time: elapsed + 0.1, multiplier: 0 },    // fald ned
     ]);
 
-    setMessage(`💥 Crash ved ${crashPoint.toFixed(2)}x! Du tabte 😭`);
+    setMessage(`Crash at ${crashPoint.toFixed(2)}x! You lost`);
     setIsPlaying(false);
   }
 }
@@ -85,11 +85,11 @@ export default function GamblingCrash() {
 
   return (
     <div className="crash-container">
-      <h1 className="crash-title">💥 Gambling Crash</h1>
+      <h1 className="crash-title">Crash</h1>
       <div className="crash-stats">
         <div className="stat-card">
           <div className="stat-label">Balance</div>
-          <div className="stat-value">{balance} 💰</div>
+          <div className="stat-value">{balance}</div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Multiplier</div>
