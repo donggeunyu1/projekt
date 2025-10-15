@@ -85,28 +85,8 @@ export default function GamblingCrash() {
 
   return (
     <div className="crash-container">
+
       <h1 className="crash-title">Crash</h1>
-      <div className="crash-stats">
-        <div className="stat-card">
-          <div className="stat-label">Balance</div>
-          <div className="stat-value">{balance}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Multiplier</div>
-          <div className="stat-value">{multiplier.toFixed(2)}x</div>
-        </div>
-      </div>
-      <div className="bet-row">
-        <label className="bet-label">Indsats:</label>
-        <input
-          type="number"
-          min={1}
-          value={bet}
-          onChange={(e) => setBet(Number(e.target.value))}
-          disabled={isPlaying}
-          className="bet-input"
-        />
-      </div>
 
       {/* Buttons moved below the graph, only Reset remains here for layout */}
       <div className="reset-row">
@@ -115,8 +95,41 @@ export default function GamblingCrash() {
         </button>
       </div>
 
+      <div className="crash-main">
+        <div className="crash-stats">
+          <div className="stat-card">
+            <div className="stat-label">Balance</div>
+            <div className="stat-value">{balance}</div>
+          </div>
+        <div className="stat-card">
+          <div className="stat-label">Multiplier</div>
+          <div className="stat-value">{multiplier.toFixed(2)}x</div>
+        </div>
+        
+        <div className="bet-row">
+          <label className="bet-label">Indsats:</label>
+            <input  type="number"
+                    min={1}
+                    value={bet}
+                    onChange={(e) => setBet(Number(e.target.value))}
+                    disabled={isPlaying}
+                    className="bet-input" />
+            </div>
 
-      <div style={{ width: '60%', height: 300, background: '#fafafbff', padding: 8, borderRadius: 8, marginLeft: 8}}>
+             {/* Start and Stop buttons moved below the graph */}
+          <div className="control-row">
+            <button onClick={() => {
+            if (!isPlaying) startGame();
+            else stopGame();
+             }}
+            className="btn-toggle"
+            disabled={isPlaying && cashedOut} >
+          {isPlaying ? (cashedOut ? 'Cashed' : 'Stop') : 'Start'}
+        </button>
+      </div>
+    </div>
+      
+      <div className="crash-graph">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -126,21 +139,9 @@ export default function GamblingCrash() {
             <Line type="monotone" dataKey="multiplier" stroke="#82ca9d" strokeWidth={2} dot={false} isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
-      </div>
+    </div>
+ </div>
 
-      {/* Start and Stop buttons moved below the graph */}
-      <div className="control-row">
-        <button
-          onClick={() => {
-            if (!isPlaying) startGame();
-            else stopGame();
-          }}
-          className="btn-toggle"
-          disabled={isPlaying && cashedOut}
-        >
-          {isPlaying ? (cashedOut ? 'Cashed' : 'Stop') : 'Start'}
-        </button>
-      </div>
 
 
   <div className="crash-message">{message}</div>

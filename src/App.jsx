@@ -1,12 +1,15 @@
 import React from "react";
-import GamblingCrash from "./components/GamblingCrash";
+import './styles/App.css'
 import "./styles/Crash.css";
 
-export default function App() {
+import CrashPage from "./pages/CrashPage"; // <-- brug CrashPage i stedet
+
+function App() {
   return (
     <div>
-      <h2 style={{ textAlign: "center", marginTop: "20px" }}>Crash test</h2>
-      <GamblingCrash />
+      <CrashPage/>
     </div>
   );
 }
+
+export default App;

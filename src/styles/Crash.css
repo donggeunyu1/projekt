@@ -1,19 +1,72 @@
-/* src/styles/Crash.css */
 .crash-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  font-family: Inter, Arial, sans-serif;
-  background: linear-gradient(180deg, #0f172a, #020617);
-  min-height: 100vh;
-  color: #e6eef8;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1e293b;
+    display: flex;       
+    flex-direction: column; 
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
-.crash-title { font-size: 2rem; color: #7ee787; margin-bottom: 0.8rem; }
-.crash-stats { display:flex; gap:12px; margin-bottom:12px; }
-.stat-card { background:#081029; padding:12px 18px; border-radius:10px; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
-.bet-row { margin-bottom: 12px; }
-.bet-input { width:100px; padding:8px; border-radius:8px; border:none; }
-.btn-toggle { padding:10px 20px; background:#7ee787; border:none; border-radius:10px; cursor:pointer; }
-.crash-message { margin-top:12px; color:#ffd1d1; }
+.crash-title {  font-size: 2rem; 
+                color: #7ee787; 
+                margin-bottom: 0.8rem; }
+
+.crash-main {   display: flex;
+                gap: 20px;
+                align-items: flex-start;
+                width: 100%;
+                max-width: 1000px;
+                margin-bottom: 16px; }
+
+.crash-stats {  display: flex;
+                flex-direction: column;
+                gap: 12px;
+                min-width: 150px; }
+
+.crash-graph {  flex-grow: 1;
+                background-color: #1f2937;
+                padding: 16px;
+                border-radius: 12px;
+                margin-left: 8px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+.stat-card {  background:rgb(84, 175, 64); 
+              padding:12px 18px; 
+              border-radius:10px; 
+              color:#fff; }
+              
+.crash-graph {  flex: 1;
+                height: 300px;
+                background: #fafafbff;
+                padding: 8px;
+                border-radius: 8px; }
+
+.bet-row { margin-bottom: 12px;
+            color: #7ee787; }
+
+.bet-input {  width:100px; 
+              padding:8px; 
+              border-radius:8px; 
+              border:none; }
+
+.btn-toggle {   background: rgb(84, 175, 64);
+                color: #fff;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+
+                padding: 12px 18px; 
+                min-width: 150px;    
+                font-size: 1rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center; }
+                
+
+.crash-message {  margin-top:12px; 
+                  color:#ffd1d1; }
+
+.rules {  font-size:0.9rem; 
+          color:#ffd1d1; }
