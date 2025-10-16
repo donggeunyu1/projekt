@@ -92,11 +92,10 @@ useEffect(() => {
 
 
 
-
-
   return (
     <div className="CrashGamePage-container">
-
+      
+      <div className="crash-container">
       {/* Buttons moved below the graph, only Reset remains here for layout */}
       <div className="reset-row">
         <button onClick={() => setBalance(1000)} className="btn-reset">
@@ -163,6 +162,7 @@ useEffect(() => {
         </i>
       </div>
     </div>
+  </div>
   );
 }
 
