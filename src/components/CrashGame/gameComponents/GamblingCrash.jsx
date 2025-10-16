@@ -1,7 +1,8 @@
+import '../gameStyles/Crash.css'
 import React, { useState, useEffect, useRef } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-export default function GamblingCrash() {
+function GamblingCrash() {
   const [balance, setBalance] = useState(1000);
   const [bet, setBet] = useState(50);
   const [multiplier, setMultiplier] = useState(1);
@@ -96,8 +97,6 @@ useEffect(() => {
   return (
     <div className="crash-container">
 
-      <h1 className="crash-title">Crash</h1>
-
       {/* Buttons moved below the graph, only Reset remains here for layout */}
       <div className="reset-row">
         <button onClick={() => setBalance(1000)} className="btn-reset">
@@ -145,7 +144,7 @@ useEffect(() => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="time" type="number" domain={[ 0, (dataMax) => Math.max(3,dataMax)]} tickFormatter={(val) => val.toFixed(1) + 's'} />
             <YAxis dataKey="multiplier" type="number" domain={[1, (multiMax) => Math.max(3, multiMax)]} tickFormatter={(val) => val.toFixed(2) + 'x'} />
-            <Line type="monotone" dataKey="multiplier" stroke="#82ca9d" strokeWidth={2} dot={false} isAnimationActive={false} />
+            <Line type="monotone" dataKey="multiplier" stroke="#f90b0bff" strokeWidth={2} dot={false} isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
     </div>
@@ -166,3 +165,5 @@ useEffect(() => {
     </div>
   );
 }
+
+export default GamblingCrash;

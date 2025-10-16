@@ -1,8 +1,10 @@
 import { useState } from "react";
 import '../styles/Deposit.css' 
+import '../styles/Popup.css' 
 
 
-function DepositInfo() {
+
+function DepositInfo({ onClose }) {
   const [DInput, setDinput] = useState()
 
   function handleInputChange(event){
@@ -11,6 +13,7 @@ function DepositInfo() {
 
   function ResetInput(){
     setDinput(0);
+    onClose();
   }
 
   return (
