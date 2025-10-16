@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import GamblingCrash from "../components/GamblingCrash";
-import "../styles/Crash.css"; // importér din CSS her
+import "../styles/GamePage.css"; // importér din CSS her
 
 function CrashPage() {
   return (

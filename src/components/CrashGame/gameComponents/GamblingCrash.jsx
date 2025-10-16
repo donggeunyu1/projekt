@@ -95,7 +95,7 @@ useEffect(() => {
 
 
   return (
-    <div className="crash-container">
+    <div className="CrashGamePage-container">
 
       {/* Buttons moved below the graph, only Reset remains here for layout */}
       <div className="reset-row">
