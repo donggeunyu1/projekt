@@ -9,7 +9,7 @@ export default function GamblingCrash() {
   const [crashPoint, setCrashPoint] = useState(null);
   const [cashedOut, setCashedOut] = useState(false);
   const [message, setMessage] = useState("");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{ time: 0, multiplier: 1 }]);
   const timerRef = useRef(null);
 
   function startGame() {
@@ -29,8 +29,10 @@ export default function GamblingCrash() {
   }
 
   function generateCrashPoint() {
-    const r = Math.random();
-    return Math.max(1.1, Math.round((1 / (1 - r)) * 10) / 10);
+  const bias = 13;
+  const r = Math.random();
+  const val = Math.pow(r, bias) * 100;
+  return Math.max(1.03, Math.round(val * 10) / 10);
   }
 
   function stopGame() {
@@ -43,44 +45,52 @@ export default function GamblingCrash() {
     setIsPlaying(false);
   }
 
-  useEffect(() => {
-  if (!isPlaying) return;
+useEffect(() => {
+  if (!isPlaying || crashPoint == null) return;
 
-  const start = Date.now();
-  setData([{ time: 0, multiplier: 1 }]); // startpunkt
-  setMultiplier(1);
+  const start = performance.now();
+  const growthRate = 0.3;
+  let frameId;
 
-  timerRef.current = setInterval(() => {
-    const elapsed = (Date.now() - start) / 1000;
-    /*const newMult = 1 + elapsed / 2; // hastighed justeret*/
-
-    const growthRate = 0.3; // styrer hvor hurtigt den stiger (prøv at justere)
+  function tick(now) {
+    const elapsed = (now - start) / 1000;
     const newMult = Math.exp(growthRate * elapsed);
 
-
-    // tilføj datapunkt
-    setData((prev) => [...prev, { time: elapsed, multiplier: newMult }]);
     setMultiplier(newMult);
 
+    // tilføj et punkt ca. hver 0.05 s
+    setData(prev => {
+      if (prev.length && elapsed - prev[prev.length - 1].time < 0.05) return prev;
+      return [...prev, { time: elapsed, multiplier: newMult }];
+    });
+
+    
     if (newMult >= crashPoint) {
-  clearInterval(timerRef.current);
+      cancelAnimationFrame(frameId);
+      if (!cashedOut) {
+        setData(prev => [
+          ...prev,
+          { time: elapsed, multiplier: crashPoint },
+          { time: elapsed + 0.05, multiplier: 0 },
+        ]);
+        setMessage(`Crash at ${crashPoint.toFixed(2)}x! You lost`);
+        setIsPlaying(false);
+      }
+      return;
+    }
 
-  if (!cashedOut) {
-    // Tilføj et crash-punkt der falder brat ned til 0
-    setData((prev) => [
-      ...prev,
-      { time: elapsed, multiplier: crashPoint }, // toppen
-      { time: elapsed + 0.1, multiplier: 0 },    // fald ned
-    ]);
-
-    setMessage(`Crash at ${crashPoint.toFixed(2)}x! You lost`);
-    setIsPlaying(false);
+    // ⇣ VIGTIGT: bare giv funktionen – RAF sender selv 'now'
+    frameId = requestAnimationFrame(tick);
   }
-}
-}, 100);
 
-  return () => clearInterval(timerRef.current);
+  // start
+  frameId = requestAnimationFrame(tick);
+
+  return () => cancelAnimationFrame(frameId);
 }, [isPlaying, crashPoint, cashedOut]);
+
+
+
 
 
   return (
@@ -133,15 +143,13 @@ export default function GamblingCrash() {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="time" type="number" domain={['dataMin', 'dataMax']} tickFormatter={(val) => val.toFixed(1) + 's'} />
-            <YAxis dataKey="multiplier" type="number" domain={[1, 'auto']} tickFormatter={(val) => val.toFixed(2) + 'x'} />
-            <Tooltip formatter={(val) => val.toFixed(2) + 'x'} labelFormatter={(label) => 'Tid: ' + label.toFixed(1) + 's'} />
+            <XAxis dataKey="time" type="number" domain={[ 0, (dataMax) => Math.max(3,dataMax)]} tickFormatter={(val) => val.toFixed(1) + 's'} />
+            <YAxis dataKey="multiplier" type="number" domain={[1, (multiMax) => Math.max(3, multiMax)]} tickFormatter={(val) => val.toFixed(2) + 'x'} />
             <Line type="monotone" dataKey="multiplier" stroke="#82ca9d" strokeWidth={2} dot={false} isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
     </div>
  </div>
-
 
 
   <div className="crash-message">{message}</div>
