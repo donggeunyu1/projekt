@@ -155,13 +155,13 @@ useEffect(() => {
   <div className="crash-message">{message}</div>
 
       <div className="rules">
-        <strong>Regler:</strong>
-        <ul>
-          <li>Placer en indsats og tryk <strong>Start</strong>.</li>
-          <li>Multiplieren stiger — tryk <strong>Stop</strong> inden den crasher!</li>
-          <li>Hvis du når at stoppe før crash, vinder du indsats × multiplier.</li>
-          <li>Dette er kun et spil med virtuelle mønter.</li>
-        </ul>
+        <i>
+          <strong>Regler: </strong>
+          Placer en indsats og tryk <strong>Start</strong>. Multiplieren stiger
+          — tryk <strong>Stop</strong> inden den crasher! Hvis du når at stoppe
+          før crash, vinder du indsats × multiplier. Dette er kun et spil med
+          virtuelle mønter.
+        </i>
       </div>
     </div>
   );
