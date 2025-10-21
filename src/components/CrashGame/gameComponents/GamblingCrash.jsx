@@ -30,7 +30,7 @@ function GamblingCrash() {
   }
 
   function generateCrashPoint() {
-  const bias = 13;
+  const bias = 1;
   const r = Math.random();
   const val = -Math.log(1 - r) / bias;
   return Math.max(1.03, Math.round(val * 10) / 10);
