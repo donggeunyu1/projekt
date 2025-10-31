@@ -1,6 +1,8 @@
 import '../gameStyles/Crash.css'
 import React, { useState, useEffect, useRef } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import winMP3 from "../sounds/win.mp3"
+import lossMP3 from "../sounds/explosion.mp3"
 
 function GamblingCrash() {
   const [balance, setBalance] = useState(1000);
@@ -12,6 +14,9 @@ function GamblingCrash() {
   const [message, setMessage] = useState("");
   const [data, setData] = useState([{ time: 0, multiplier: 1 }]);
   const timerRef = useRef(null);
+
+  let winSound = new Audio(winMP3);
+  let lossSound = new Audio(lossMP3);
 
   function startGame() {
     if (isPlaying) return;
@@ -41,6 +46,7 @@ function GamblingCrash() {
     setCashedOut(true);
     const payout = Math.floor(bet * multiplier);
     setBalance((b) => b + payout);
+    winSound.play();
     setMessage(`You stopped at ${multiplier.toFixed(2)}x and won ${payout}`);
     clearInterval(timerRef.current);
     setIsPlaying(false);
@@ -74,6 +80,7 @@ useEffect(() => {
           { time: elapsed, multiplier: crashPoint },
           { time: elapsed + 0.05, multiplier: 0 },
         ]);
+        lossSound.play();
         setMessage(`Crash at ${crashPoint.toFixed(2)}x! You lost`);
         setIsPlaying(false);
       }
@@ -106,7 +113,7 @@ useEffect(() => {
       <div className="crash-main">
         <div className="crash-stats">
           <div className="stat-card">
-            <div className="stat-label">Balance</div>
+            <div className="stat-label">Session Balance</div>
             <div className="stat-value">{balance}</div>
           </div>
         <div className="stat-card">
